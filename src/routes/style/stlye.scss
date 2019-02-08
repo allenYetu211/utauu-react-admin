@@ -13,7 +13,10 @@
 }
 
 .route-container {
+  height: 100vh;
+  overflow-y: auto;
   flex: 1;
+  background-color:$contentBgColor;
 }
 
 .side-parent-container {

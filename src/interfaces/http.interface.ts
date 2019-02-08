@@ -6,3 +6,5 @@ export interface IGetParams {
 export interface IConfigOrigin{
   origin: string;
 }
+
+

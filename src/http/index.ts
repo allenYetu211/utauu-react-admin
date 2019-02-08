@@ -1,6 +1,11 @@
-import axios, { AxiosInstance} from 'axios'
+import Axios, { AxiosInstance, AxiosResponse} from 'axios'
+/**
+ * @file: 
+ * @module: http模块拦截
+ * @author:  Allen OYang https://github.com/allenYetu211
+ */
 import {config} from 'src/config';
-import {IConfigOrigin, IGetParams} from 'src/asset/interfaces/http.interface';
+import {IConfigOrigin, IGetParams} from 'src/interfaces/http.interface';
 
 class HttpClient {
    public axios:AxiosInstance;
@@ -9,17 +14,21 @@ class HttpClient {
     constructor (
       readonly configOrigin: IConfigOrigin) {
       this.origin= configOrigin.origin
-      this.axios = axios.create()
+      this.axios = Axios.create({
+        timeout: 10000
+      })
 
-      this.axios.interceptors.request.use(<AxiosResponse>(response: AxiosResponse):any => {
-        console.log('response', response);
+      this.axios.interceptors.response.use((response: AxiosResponse):any => {
+        if (response.data.status === 'Success') {
+          return response.data.result
+        }
       });
 
     }
 
 
     public async get (param:IGetParams): Promise<any>{
-      return await axios.get(`${this.origin}/${param.url}`);
+      return await this.axios.get(`${this.origin}/${param.url}`);
     }    
 }
 

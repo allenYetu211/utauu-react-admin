@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {IColumn} from 'src/asset/interfaces/routes.interface'
+import {IColumn} from 'src/interfaces/routes.interface'
 // @ts-ignore
 import {BrowserRouter as Route, Link} from "react-router-dom";
 import * as style from 'src/routes/style/stlye.scss'

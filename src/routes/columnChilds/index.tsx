@@ -6,7 +6,7 @@ import * as React from 'react';
 import * as style from 'src/routes/style/stlye.scss'
 // @ts-ignore
 import {BrowserRouter as Route, Link} from "react-router-dom";
-import {IColumn, IChilds} from 'src/asset/interfaces/routes.interface';
+import {IColumn, IChilds} from 'src/interfaces/routes.interface';
 import cn from 'classnames';
 
 interface IProps {

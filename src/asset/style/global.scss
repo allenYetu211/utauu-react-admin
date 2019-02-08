@@ -1,0 +1,39 @@
+@import './variable.scss';
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Helvetica, Tahoma, Arial,
+    "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  color:$defaultColor;
+}
+
+:global {
+  body {
+    background-color: $defaultBgColor;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    list-style: none;
+  }
+  a {
+    text-decoration: none;
+  }
+  button {
+    cursor: pointer;
+    outline: none;
+  }
+}

@@ -4,9 +4,13 @@
  */
 import * as React from 'react';
 import {articleAll} from 'src/action/httpaction';
-import {IArticle} from 'src/interfaces/interface'
-import ContentHeaderComponent from 'src/components/contentHeader/index'
-import CardContainerComponent from 'src/components/cardContainer/index'
+import {IArticle} from 'src/interfaces/interface';
+import ContentHeaderComponent from 'src/components/contentHeader/index';
+import CardContainerComponent from 'src/components/cardContainer/index';
+
+// @ts-ignore
+import {Link} from "react-router-dom";
+
 interface IState {
   article : IArticle | []
 }
@@ -30,7 +34,11 @@ IState > {
     return (
       <div>
 
-        <ContentHeaderComponent title="所有文章"/>
+        <ContentHeaderComponent title="所有文章">
+          <button>
+            <Link to="/article-create">新建文章</Link>
+          </button>
+        </ContentHeaderComponent>
 
         <div>
           <CardContainerComponent>

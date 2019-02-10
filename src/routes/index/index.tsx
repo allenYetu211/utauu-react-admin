@@ -13,6 +13,7 @@ import ArticleAll from 'src/pages/ArticleAll'
 import ArticleClass from 'src/pages/ArticleClass'
 import ArticleTag from 'src/pages/ArticleTag'
 import Articlepublish from 'src/pages/Articlepublish'
+import ArticleCreate from 'src/pages/ArticleCreate'
 
 
 interface IState {
@@ -96,6 +97,7 @@ IState > {
             <Route path="/article-class" component={ArticleClass}/>
             <Route path="/article-tag" component={ArticleTag}/>
             <Route path="/article-publish" component={Articlepublish}/>
+            <Route path="/article-create" component={ArticleCreate}/>
           </div>
 
         </div>

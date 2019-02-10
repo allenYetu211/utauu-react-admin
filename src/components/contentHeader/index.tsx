@@ -10,11 +10,15 @@ interface IProps{
 
 export default class ContentHeaderComponent extends React.Component<IProps, any> {
   public render() {
-    const {title} = this.props
+    const {title, children} = this.props
     return (
-      <h1 className={Style.contentHeader}>
-        {title}
-      </h1>
+      <div className={Style.contentHeader}>
+        <h1>{title}</h1>
+
+        <div>
+          {children}
+        </div>
+      </div>
     )
   }
 }

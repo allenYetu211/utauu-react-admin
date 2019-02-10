@@ -4,15 +4,25 @@
  */
 
 import * as React from 'react';
-// import * as style from './style/style.scss';
+import * as style from './style/style.scss';
 
-export default class CardContainerComponent extends React.Component<any, any> {
+interface IProps {
+  cardTitlt?: string;
+}
+
+export default class CardContainerComponent extends React.Component < IProps,
+any > {
 
   public render() {
-    const {children} = this.props
-    return(
-      <div>
-        {children}
+    const {children, cardTitlt} = this.props
+    return (
+      <div className={style.cardContainer}>
+        <div className={style.cardTitle}>
+          {cardTitlt}
+        </div>
+        <div>
+          {children}
+        </div>
       </div>
     )
   }

@@ -1,7 +1,6 @@
 import * as React from 'react'
 import {IColumn} from 'src/interfaces/routes.interface'
-// @ts-ignore
-import {BrowserRouter as Route, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import * as style from 'src/routes/style/stlye.scss'
 import cn from 'classnames';
 

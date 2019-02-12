@@ -3,7 +3,7 @@
  * @author:  Allen OYang https://github.com/allenYetu211
  */
 import * as React from 'react';
-import {articleAll} from 'src/action/httpaction';
+import {getArticleAll} from 'src/action/httpaction';
 import {IArticle} from 'src/interfaces/interface';
 import ContentHeaderComponent from 'src/components/contentHeader/index';
 import CardContainerComponent from 'src/components/cardContainer/index';
@@ -24,7 +24,7 @@ IState > {
   }
 
   public async componentDidMount() {
-    const result : IArticle = await articleAll()
+    const result : IArticle = await getArticleAll()
     this.setState({article: result})
   }
 

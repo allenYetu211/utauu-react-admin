@@ -13,6 +13,7 @@ interface IProps {
 export default class CardContainerComponent extends React.Component < IProps,
 any > {
 
+  
   public render() {
     const {children, cardTitlt} = this.props
     return (
@@ -20,7 +21,7 @@ any > {
         <div className={style.cardTitle}>
           {cardTitlt}
         </div>
-        <div>
+        <div  className={style.cardChilderContainer}>
           {children}
         </div>
       </div>

@@ -5,30 +5,43 @@
 import * as React from 'react';
 import ContentHeaderComponent from 'src/components/contentHeader/index';
 import CardContainerComponent from 'src/components/cardContainer/index';
+import {getTagsAll} from 'src/action/httpaction';
+import {ITags} from 'src/interfaces/interface';
+import * as style from './style/style.scss'
 
-
-interface IState  {
-  title: string;
+interface IState {
+  title : string;
+  introduction : string;
+  tags : ITags[]
 }
 
 export default class ArticleCreatePage extends React.Component < any,
 IState > {
-  
-  constructor(props: any) {
+
+  constructor(props : any) {
     super(props)
     this.state = {
-      title: ''
+      title: '',
+      introduction: '',
+      tags: []
     }
   }
 
-  public onTitle = (e: any) :void => {
-    this.setState({
-      title: e.target.value
-    })
+  public async componentDidMount() {
+    const result = await getTagsAll()
+    this.setState({tags: result})
+  }
+
+  public onTitle = (e : any) : void => {
+    this.setState({title: e.target.value})
+  }
+
+  public onBriefintroduction = (e : any) => {
+    this.setState({introduction: e.target.value})
   }
 
   public render() {
-    const {title} = this.state;
+    const {title, introduction, tags} = this.state;
     return (
       <div>
 
@@ -38,10 +51,33 @@ IState > {
           </button>
         </ContentHeaderComponent>
 
-        <CardContainerComponent cardTitlt="文章标题">
-         <input value={title} onChange={this.onTitle} type="text"/>
+        <CardContainerComponent cardTitlt="基本信息">
+          <div className={style.labelItem}>
+            <span>文章标题</span>
+            <input value={title} onChange={this.onTitle} type="text"/>
+          </div>
+
+          <div className={style.labelItem}>
+            <span>文章简介</span>
+            <textarea value={introduction} onChange={this.onBriefintroduction}/>
+          </div>
+
+          <div className={style.labelItem}>
+            <span>文章标签</span>
+            <div className={style.itemContainer}>
+
+              {tags.map((item : ITags, key : number) => {
+                return (
+                  <div className={style.tagItem} key={key}>
+                    {item.msg}
+                  </div>
+                )
+              })
+}
+            </div>
+          </div>
         </CardContainerComponent>
-        
+
       </div>
     )
   }

@@ -10,3 +10,8 @@ export interface  IArticle{
   readonly content: string;
   readonly mate: IMate
 }
+
+export interface  ITags{
+  readonly msg: string;
+  readonly type: string[];
+}

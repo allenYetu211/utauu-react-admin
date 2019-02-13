@@ -3,7 +3,7 @@
 .labelItem {
   @extend %flex-center;
   margin-bottom: 20px;
-  span {
+  & > span {
     display: block;
     width: 100px;
     text-align: right;

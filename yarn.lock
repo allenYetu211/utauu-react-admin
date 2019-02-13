@@ -42,6 +42,10 @@
   version "0.0.29"
   resolved "http://registry.npm.taobao.org/@types/json5/download/@types/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
 
+"@types/marked@^0.6.0":
+  version "0.6.0"
+  resolved "http://registry.npm.taobao.org/@types/marked/download/@types/marked-0.6.0.tgz#e4ac316144a84afda5c2474488d7b9fef3ab9995"
+
 "@types/node@^10.12.21":
   version "10.12.21"
   resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-10.12.21.tgz#7e8a0c34cf29f4e17a36e9bd0ea72d45ba03908e"
@@ -4591,6 +4595,10 @@ map-visit@^1.0.0:
   resolved "http://registry.npm.taobao.org/map-visit/download/map-visit-1.0.0.tgz#ecdca8f13144e660f1b5bd41f12f3479d98dfb8f"
   dependencies:
     object-visit "^1.0.0"
+
+marked@^0.6.0:
+  version "0.6.0"
+  resolved "http://registry.npm.taobao.org/marked/download/marked-0.6.0.tgz#a18d01cfdcf8d15c3c455b71c8329e5e0f01faa1"
 
 math-expression-evaluator@^1.2.14:
   version "1.2.17"

@@ -1,4 +1,5 @@
 @import 'src/asset/style/extendsFlex.scss';
+@import 'src/asset/style/variable.scss';
 .labelItem {
   @extend %flex-center;
   margin-bottom: 20px;
@@ -20,6 +21,14 @@
   @extend %flex-start-center;
 }
 
+.labelItemStart {
+  @extend .labelItem;
+  align-items: start;
+  span {
+    padding-top: 5px;
+  }
+}
+
 .tagItem {
   padding: 3px 6px;
   margin-right: 10px;
@@ -29,6 +38,6 @@
   transition: all ease 0.3s;
   cursor: pointer;
   &:hover {
-    background-color:#00de79;
+    background-color:$bgcolor5;
   }  
 }

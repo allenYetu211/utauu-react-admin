@@ -20,6 +20,16 @@
   version "2.2.7"
   resolved "http://registry.npm.taobao.org/@types/classnames/download/@types/classnames-2.2.7.tgz#fb68cc9be8487e6ea5b13700e759bfbab7e0fefd"
 
+"@types/codemirror@^0.0.72":
+  version "0.0.72"
+  resolved "http://registry.npm.taobao.org/@types/codemirror/download/@types/codemirror-0.0.72.tgz#75e95e3b488717605d2591cd80c4d2ed88ff276e"
+  dependencies:
+    "@types/tern" "*"
+
+"@types/estree@*":
+  version "0.0.39"
+  resolved "http://registry.npm.taobao.org/@types/estree/download/@types/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
+
 "@types/history@*":
   version "4.7.2"
   resolved "http://registry.npm.taobao.org/@types/history/download/@types/history-4.7.2.tgz#0e670ea254d559241b6eeb3894f8754991e73220"
@@ -67,6 +77,12 @@
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
+
+"@types/tern@*":
+  version "0.22.1"
+  resolved "http://registry.npm.taobao.org/@types/tern/download/@types/tern-0.22.1.tgz#d96467553128794f42fbe7ba8f60b520acffb817"
+  dependencies:
+    "@types/estree" "*"
 
 abab@^1.0.3:
   version "1.0.4"
@@ -1572,6 +1588,10 @@ coa@~1.0.1:
 code-point-at@^1.0.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/code-point-at/download/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
+
+codemirror@^5.43.0:
+  version "5.43.0"
+  resolved "http://registry.npm.taobao.org/codemirror/download/codemirror-5.43.0.tgz#2454b5e0f7005dc9945ab7b0d9594ccf233da040"
 
 collection-visit@^1.0.0:
   version "1.0.0"

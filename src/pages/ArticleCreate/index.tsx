@@ -3,12 +3,12 @@
  * @author:  Allen OYang https://github.com/allenYetu211
  */
 import * as React from 'react';
-import ContentHeaderComponent from 'src/components/contentHeader/index';
-import CardContainerComponent from 'src/components/cardContainer/index';
+import ContentHeaderComponent from 'src/components/contentHeader';
+import CardContainerComponent from 'src/components/cardContainer';
+import MarkDownComponent from 'src/components/markdown';
 import {getTagsAll} from 'src/action/httpaction';
 import {ITags} from 'src/interfaces/interface';
 import * as style from './style/style.scss'
-
 interface IState {
   title : string;
   introduction : string;
@@ -57,7 +57,8 @@ IState > {
             <input value={title} onChange={this.onTitle} type="text"/>
           </div>
 
-          <div className={style.labelItem}>
+
+          <div className={style.labelItemStart}>
             <span>文章简介</span>
             <textarea value={introduction} onChange={this.onBriefintroduction}/>
           </div>
@@ -76,7 +77,18 @@ IState > {
 }
             </div>
           </div>
+
+
+          <div className={style.labelItem}>
+            <span>文章内容</span>
+            <div className={style.itemContainer}>
+                <MarkDownComponent/>
+            </div>
+          </div>
         </CardContainerComponent>
+
+
+        
 
       </div>
     )

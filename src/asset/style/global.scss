@@ -47,8 +47,8 @@ body {
     padding: 5px 15px;
   }
 
-  input,
-  textarea {
+  input.default__style,
+  textarea.default__style {
     width: 100%;
     height: 40px;
     line-height: 40px;
@@ -57,7 +57,7 @@ body {
     border: 1px solid #3a3b3e;
     padding: 0 10px;
   }
-  textarea  {
+  textarea.textarea__style  {
     height: 120px;
     line-height: 20px;
   }

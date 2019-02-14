@@ -1,10 +1,9 @@
 import * as React from 'react';
-import * as codemirror from 'codemirror'
+import * as codemirror from 'codemirror';
 import * as marked from 'marked';
-import 'codemirror/lib/codemirror.css';
 import * as style from './style/style.scss';
-
-
+import * as cn from 'classnames';
+import 'codemirror/lib/codemirror.css';
 
 // todo 修改编辑器样式
 // todo 编辑栏目菜单
@@ -12,6 +11,8 @@ import * as style from './style/style.scss';
 interface IState {
   textareaValue : string;
   markedHtml : any;
+  viewMarked : boolean;
+  fullScreen : boolean;
 }
 export default class MarkDownComponent extends React.Component < any,
 IState > {
@@ -22,7 +23,9 @@ IState > {
     super(props);
     this.state = {
       textareaValue: '',
-      markedHtml: ''
+      markedHtml: '',
+      viewMarked: false,
+      fullScreen: false
     }
   }
 
@@ -77,31 +80,95 @@ IState > {
       }
     }));
 
-    this.codemirror.on('change', (cm:any) => {
-      const content = cm.getValue();
-      console.log('content:::', content)
-      if (content !== textareaValue) {
-        this.setState({
-          textareaValue: content,
-          markedHtml: this.marked(content)
-        })
-      }
-    });
+    this
+      .codemirror
+      .on('change', (cm : any) => {
+        const content = cm.getValue();
+        if (content !== textareaValue) {
+          this.setState({
+            textareaValue: content,
+            markedHtml: this.marked(content)
+          })
+        }
+      });
+  }
+
+  // 获取光标位置
+  public getCursorLocation = () => {
+    const location = this.codemirror.getCursor('start')
+    const stat = this.codemirror.getTokenAt(location);
+    return stat
+  }
+
+  // 替换累容
+  public replaceSelection = () => {
+    this.codemirror.setSelection('[', 'infor]')
+  }
+
+  public injectLink = () => {
+    // const location = this.codemirror.getCursor('start')
+    // const location = this.getCursorLocation()
+    // this.codemirror.setSelection('[', 'infor]')
+    this.codemirror.replaceSelection('[](https://)')
+  }
+
+  public viewMarked = () => {
+    this.setState({
+      viewMarked: !this.state.viewMarked
+    })
+  }
+
+  public fullScreen = () => {
+    this.setState({
+      fullScreen: !this.state.fullScreen
+    })
   }
 
   public render() {
-    const {markedHtml} = this.state
+    const {markedHtml, viewMarked, fullScreen} = this.state
     return (
-      <div className={style.markdownEditor}>
-        <div>
-          <textarea  id="editor"/>
+      <div
+        className={cn(style.markdownEditor, {
+        [style.viewFullScreen]: fullScreen
+      })}>
+
+
+        <div className={style.markdownMenu}>
+          <ul>
+            <li>
+              <button onClick={this.injectLink}>连接</button>
+            </li>
+            <li>
+              <button onClick={this.viewMarked}>{
+                viewMarked ? '专注' : '预览'
+              }</button>
+            </li>
+            <li>
+              <button onClick={this.fullScreen}>
+              {
+                fullScreen ? '细致': '全屏'
+              }
+              </button>
+            </li>
+          </ul>
         </div>
 
-        <div className="markedHtml">
-          <div dangerouslySetInnerHTML={{
-            __html: markedHtml
-          }}/>
+        <div className={cn(style.markdownContainer)}>
+          <div>
+            <textarea id="editor"/>
+          </div>
+
+          <div
+            className={cn(style.marked, {
+            [style.show]: viewMarked
+          })}>
+            <div
+              dangerouslySetInnerHTML={{
+              __html: markedHtml
+            }}/>
+          </div>
         </div>
+
       </div>
 
     )

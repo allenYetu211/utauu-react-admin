@@ -51,44 +51,51 @@ IState > {
           </button>
         </ContentHeaderComponent>
 
-        <CardContainerComponent cardTitlt="基本信息">
-          <div className={style.labelItem}>
-            <span>文章标题</span>
-            <input value={title} onChange={this.onTitle} type="text"/>
-          </div>
+        <CardContainerComponent fullHv={true} cardTitlt="基本信息">
+          <div className={style.basicsInfoContainer}>
+            <div>
+              <div className={style.labelItem}>
+                <span>文章标题</span>
+                <input
+                  className="default__style"
+                  value={title}
+                  onChange={this.onTitle}
+                  type="text"/>
+              </div>
 
+              <div className={style.labelItemStart}>
+                <span>文章简介</span>
+                <textarea
+                  className="default__style textarea__style"
+                  value={introduction}
+                  onChange={this.onBriefintroduction}/>
+              </div>
 
-          <div className={style.labelItemStart}>
-            <span>文章简介</span>
-            <textarea value={introduction} onChange={this.onBriefintroduction}/>
-          </div>
+              <div className={style.labelItem}>
+                <span>文章标签</span>
+                <div className={style.itemContainer}>
 
-          <div className={style.labelItem}>
-            <span>文章标签</span>
-            <div className={style.itemContainer}>
-
-              {tags.map((item : ITags, key : number) => {
-                return (
-                  <div className={style.tagItem} key={key}>
-                    {item.msg}
-                  </div>
-                )
-              })
+                  {tags.map((item : ITags, key : number) => {
+                    return (
+                      <div className={style.tagItem} key={key}>
+                        {item.msg}
+                      </div>
+                    )
+                  })
 }
+                </div>
+              </div>
             </div>
-          </div>
-
-
-          <div className={style.labelItem}>
-            <span>文章内容</span>
-            <div className={style.itemContainer}>
-                <MarkDownComponent/>
+            <div>
+              <div className={style.labelItemStart}>
+                <span>文章内容</span>
+                <div className={style.itemContainer}>
+                  <MarkDownComponent/>
+                </div>
+              </div>
             </div>
           </div>
         </CardContainerComponent>
-
-
-        
 
       </div>
     )

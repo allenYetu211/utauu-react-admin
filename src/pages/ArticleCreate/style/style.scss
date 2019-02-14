@@ -41,3 +41,19 @@
     background-color:$bgcolor5;
   }  
 }
+
+.basicsInfoContainer {
+  @extend %flex-center;
+  flex-direction: column;
+    height: 100%;
+    & > div {
+      width: 100%;
+    }
+    & > div:last-child {
+      flex: 1;
+      .labelItem,
+      .itemContainer  {
+        height: 100%;
+      }
+    }
+}

@@ -13,3 +13,10 @@
   padding: 5px 15px;
 }
 
+.cardFullContainer {
+  height: calc(100vh - 88px);
+  .cardChilderContainer {
+    height: 100%;
+  }
+}
+

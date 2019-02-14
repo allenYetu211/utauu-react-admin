@@ -5,9 +5,10 @@
 
 import * as React from 'react';
 import * as style from './style/style.scss';
-
+import * as cn from 'classnames'
 interface IProps {
   cardTitlt?: string;
+  fullHv?: boolean;
 }
 
 export default class CardContainerComponent extends React.Component < IProps,
@@ -15,9 +16,10 @@ any > {
 
   
   public render() {
-    const {children, cardTitlt} = this.props
+    const {children, cardTitlt , fullHv} = this.props
+    
     return (
-      <div className={style.cardContainer}>
+      <div className={cn(style.cardContainer, {[style.cardFullContainer]: fullHv})}>
         <div className={style.cardTitle}>
           {cardTitlt}
         </div>

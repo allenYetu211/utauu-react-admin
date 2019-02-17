@@ -6,13 +6,15 @@ import * as React from 'react';
 import ContentHeaderComponent from 'src/components/contentHeader';
 import CardContainerComponent from 'src/components/cardContainer';
 import MarkDownComponent from 'src/components/markdown';
+import TagsComponent from 'src/components/tags'
 import {getTagsAll} from 'src/action/httpaction';
 import {ITags} from 'src/interfaces/interface';
-import * as style from './style/style.scss'
+import * as style from './style/style.scss';
 interface IState {
   title : string;
   introduction : string;
-  tags : ITags[]
+  tags : ITags[];
+  selected: number[];
 }
 
 export default class ArticleCreatePage extends React.Component < any,
@@ -23,7 +25,8 @@ IState > {
     this.state = {
       title: '',
       introduction: '',
-      tags: []
+      tags: [],
+      selected: []
     }
   }
 
@@ -40,8 +43,12 @@ IState > {
     this.setState({introduction: e.target.value})
   }
 
+  public onChangeSelected = (selecteds: number[]) => {
+    this.setState({selected: selecteds})
+  }
+
   public render() {
-    const {title, introduction, tags} = this.state;
+    const {title, introduction, tags, selected} = this.state;
     return (
       <div>
 
@@ -73,17 +80,10 @@ IState > {
 
               <div className={style.labelItem}>
                 <span>文章标签</span>
-                <div className={style.itemContainer}>
-
-                  {tags.map((item : ITags, key : number) => {
-                    return (
-                      <div className={style.tagItem} key={key}>
-                        {item.msg}
-                      </div>
-                    )
-                  })
-}
-                </div>
+                  <TagsComponent 
+                  onChangeSelected={this.onChangeSelected}
+                  selected={selected}
+                  tags={tags}/>
               </div>
             </div>
             <div>

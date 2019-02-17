@@ -106,9 +106,6 @@ IState > {
   }
 
   public injectLink = () => {
-    // const location = this.codemirror.getCursor('start')
-    // const location = this.getCursorLocation()
-    // this.codemirror.setSelection('[', 'infor]')
     this.codemirror.replaceSelection('[](https://)')
   }
 

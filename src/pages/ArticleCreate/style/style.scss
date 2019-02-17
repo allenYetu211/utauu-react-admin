@@ -29,18 +29,7 @@
   }
 }
 
-.tagItem {
-  padding: 3px 6px;
-  margin-right: 10px;
-  border-radius: 2px;
-  background-color:#1b1d1e;
-  color:#fff;
-  transition: all ease 0.3s;
-  cursor: pointer;
-  &:hover {
-    background-color:$bgcolor5;
-  }  
-}
+
 
 .basicsInfoContainer {
   @extend %flex-center;

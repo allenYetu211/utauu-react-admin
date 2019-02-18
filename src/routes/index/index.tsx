@@ -4,6 +4,7 @@
  */
 import * as React from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
+
 import * as style from 'src/routes/style/stlye.scss'
 import IndexPage from 'src/pages/index'
 import ColumnChildsComponent from 'src/routes/columnChilds/index'
@@ -65,6 +66,7 @@ IState > {
     const {parentContainer, targetCount} = this.state
     return (
       <Router>
+    
         <div className={style.routeContent}>
           <div className={style.routeSide}>
             <ul className={style.sideParentContainer}>
@@ -101,6 +103,7 @@ IState > {
           </div>
 
         </div>
+       
       </Router>
     )
   }

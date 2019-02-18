@@ -18,6 +18,8 @@ class HttpClient {
         timeout: 10000
       })
 
+      // 拦截处理返回内容 
+      // todo 给出错误提示
       this.axios.interceptors.response.use((response: AxiosResponse):any => {
         if (response.data.status === 'Success') {
           return response.data.result
@@ -29,6 +31,13 @@ class HttpClient {
 
     public async get (param:IGetParams): Promise<any>{
       return await this.axios.get(`${this.origin}/${param.url}`);
+    }    
+
+
+    public async post (param:IGetParams): Promise<any>{
+      return await this.axios.post(`${this.origin}/${param.url}`, {
+        ...param.data
+      });
     }    
 }
 

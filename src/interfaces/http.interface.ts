@@ -8,3 +8,10 @@ export interface IConfigOrigin{
 }
 
 
+export interface ICreateArticle {
+  title: string;
+	tags: string[];
+	introduce: string;
+	content: string;
+}
+

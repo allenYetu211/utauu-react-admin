@@ -8,13 +8,18 @@ import 'codemirror/lib/codemirror.css';
 import * as hljs from 'highlightjs';
 import 'highlightjs/styles/ocean.css';
 
+
+interface IProps {
+  onChangeMarkedContent: (content: string) => void;
+}
 interface IState {
   textareaValue : string;
   markedHtml : any;
   viewMarked : boolean;
   fullScreen : boolean;
 }
-export default class MarkDownComponent extends React.Component < any,
+
+export default class MarkDownComponent extends React.Component < IProps,
 IState > {
   private codemirror : any;
   private marked : any;
@@ -93,6 +98,7 @@ IState > {
             textareaValue: content,
             markedHtml: this.marked(content)
           })
+          this.props.onChangeMarkedContent(content)
         }
       });
 

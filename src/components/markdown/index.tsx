@@ -4,9 +4,9 @@ import * as marked from 'marked';
 import * as style from './style/style.scss';
 import * as cn from 'classnames';
 import 'codemirror/lib/codemirror.css';
-
-// todo 修改编辑器样式
-// todo 编辑栏目菜单
+// @ts-ignore
+import * as hljs from 'highlightjs';
+import 'highlightjs/styles/ocean.css';
 
 interface IState {
   textareaValue : string;
@@ -43,12 +43,14 @@ IState > {
       pedantic: false,
       sanitize: true,
       smartLists: true,
-      smartypants: false
+      smartypants: false,
+      highlight(code, lang, callback) {
+        return hljs.highlightAuto(code).value;
+      }
     });
   }
 
   public initCodemirror = () => {
-    const {textareaValue} = this.state
     const dom = document.getElementById("editor");
     // @ts-ignore
     this.codemirror = codemirror.fromTextArea(dom, Object.assign({
@@ -80,33 +82,69 @@ IState > {
       }
     }));
 
+    this.bindScroll()
+
     this
       .codemirror
       .on('change', (cm : any) => {
         const content = cm.getValue();
-        if (content !== textareaValue) {
+        if (content !== this.state.textareaValue) {
           this.setState({
             textareaValue: content,
             markedHtml: this.marked(content)
           })
         }
       });
+
+  }
+
+  // 绑定滚动事件， 同步两侧位置
+  public bindScroll() {
+    const dom = document.querySelectorAll('.CodeMirror-scroll')[0]
+    dom.addEventListener('scroll', (e : any) => {
+      const {target} = e
+      const marked : any = document.querySelector('#markedView');
+      const occupy : any = (target.scrollTop / target.scrollHeight).toFixed(2)
+      marked
+        .parentElement
+        .scroll({
+          top: (marked.scrollHeight * occupy).toFixed(0),
+          behavior: "smooth"
+        })
+    })
   }
 
   // 获取光标位置
   public getCursorLocation = () => {
-    const location = this.codemirror.getCursor('start')
-    const stat = this.codemirror.getTokenAt(location);
+    const location = this
+      .codemirror
+      .getCursor('start')
+    const stat = this
+      .codemirror
+      .getTokenAt(location);
+    console.log('stat:::', stat)
     return stat
   }
 
-  // 替换累容
+  // 替换内容
   public replaceSelection = () => {
-    this.codemirror.setSelection('[', 'infor]')
+    this
+      .codemirror
+      .setSelection('[', 'infor]')
   }
 
+  // 插入连接
   public injectLink = () => {
-    this.codemirror.replaceSelection('[](https://)')
+    this
+      .codemirror
+      .replaceSelection('[](https://)')
+  }
+
+  // 插入图片
+  public injectPicture = () => {
+    this
+      .codemirror
+      .replaceSelection('![](https://)')
   }
 
   public viewMarked = () => {
@@ -129,22 +167,26 @@ IState > {
         [style.viewFullScreen]: fullScreen
       })}>
 
-
         <div className={style.markdownMenu}>
           <ul>
             <li>
               <button onClick={this.injectLink}>连接</button>
             </li>
             <li>
-              <button onClick={this.viewMarked}>{
-                viewMarked ? '专注' : '预览'
-              }</button>
+              <button onClick={this.injectPicture}>图片</button>
+            </li>
+            <li>
+              <button onClick={this.viewMarked}>{viewMarked
+                  ? '专注'
+                  : '预览'
+}</button>
             </li>
             <li>
               <button onClick={this.fullScreen}>
-              {
-                fullScreen ? '细致': '全屏'
-              }
+                {fullScreen
+                  ? '细致'
+                  : '全屏'
+}
               </button>
             </li>
           </ul>
@@ -160,6 +202,7 @@ IState > {
             [style.show]: viewMarked
           })}>
             <div
+              id="markedView"
               dangerouslySetInnerHTML={{
               __html: markedHtml
             }}/>

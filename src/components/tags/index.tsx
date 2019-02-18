@@ -6,7 +6,6 @@
 import * as React from 'react';
 import * as style from './style/style.scss';
 import TagItem from './tagItem'
-
 import {ITags} from 'src/interfaces/interface';
 
 interface IProps {

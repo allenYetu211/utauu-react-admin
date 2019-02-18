@@ -3,34 +3,14 @@
  * @author:  Allen OYang https://github.com/allenYetu211
  */
 import * as React from 'react';
-import {getArticleAll} from 'src/action/httpaction';
-import {IArticle} from 'src/interfaces/interface';
 import ContentHeaderComponent from 'src/components/contentHeader/index';
 import CardContainerComponent from 'src/components/cardContainer/index';
-
-// @ts-ignore
+import ArticleContainer from 'src/components/articles';
 import {Link} from "react-router-dom";
 
-interface IState {
-  article : IArticle | []
-}
 export default class ArticleAllPages extends React.Component < any,
-IState > {
-  constructor(props : any) {
-    super(props)
-    this.state = {
-      article: []
-    }
-  }
-
-  public async componentDidMount() {
-    const result : IArticle = await getArticleAll()
-    this.setState({article: result})
-  }
-
+any > {
   public render() {
-    const {article} = this.state
-    console.log('article', article)
     return (
       <div>
 
@@ -42,11 +22,10 @@ IState > {
 
         <div>
           <CardContainerComponent>
-            <h1>CardContainerComponent</h1>
+            <ArticleContainer/>
           </CardContainerComponent>
         </div>
 
-        
       </div>
     )
   }

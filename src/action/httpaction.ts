@@ -8,6 +8,13 @@ export const getArticleAll = async () => {
   })
 }
 
+// 获取文章详情
+export const getArticleDetail = async (id: number) => {
+  return await HTTP_CLIENT.get({
+    url: `article/${id}`
+  })
+}
+
 // 获取全部标签
 export const getTagsAll = async () => {
   return  await HTTP_CLIENT.get({
@@ -15,8 +22,19 @@ export const getTagsAll = async () => {
   })
 }
 
-// 存储文章
-export const postArticle = async (data:ICreateArticle) => {
+// 保存编辑文章
+export const putEditArticle = async (data:ICreateArticle, id:number) => {
+  return await HTTP_CLIENT.put({
+    url: `article`,
+    data,
+    param: {
+      articleID: id
+    }
+  })
+}
+
+// 新建文章存储文章
+export const postCreateArticle = async (data:ICreateArticle) => {
   return await HTTP_CLIENT.post({
     url: 'article',
     data

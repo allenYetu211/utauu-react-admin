@@ -30,15 +30,31 @@ class HttpClient {
 
 
     public async get (param:IGetParams): Promise<any>{
-      return await this.axios.get(`${this.origin}/${param.url}`);
+      return this.AXIOS_REQUEST('GET', param)
     }    
 
 
     public async post (param:IGetParams): Promise<any>{
-      return await this.axios.post(`${this.origin}/${param.url}`, {
-        ...param.data
-      });
+      return this.AXIOS_REQUEST('POST', param)
     }    
+
+    public async put (param:IGetParams): Promise<any>{
+      return this.AXIOS_REQUEST('PUT', param)
+    }  
+    
+    public async AXIOS_REQUEST(method: string, param:IGetParams): Promise<any> {
+      return await this.axios({
+        baseURL: this.origin,
+        url: param.url,
+        method,
+        params: {
+          ...param.param
+        },
+        data: {
+          ...param.data
+        }
+      })
+    }
 }
 
 export default new HttpClient(config)

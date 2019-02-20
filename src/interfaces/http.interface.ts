@@ -1,6 +1,7 @@
 export interface IGetParams {
   url:string;
   data?: any;
+  param?: any;
 }
 
 export interface IConfigOrigin{

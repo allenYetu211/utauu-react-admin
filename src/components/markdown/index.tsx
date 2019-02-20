@@ -1,3 +1,8 @@
+/**
+ * @file: 
+ * @module:  Markdown Component
+ * @author:  Allen OYang https://github.com/allenYetu211
+ */
 import * as React from 'react';
 import * as codemirror from 'codemirror';
 import * as marked from 'marked';
@@ -11,6 +16,7 @@ import 'highlightjs/styles/ocean.css';
 
 interface IProps {
   onChangeMarkedContent: (content: string) => void;
+  content: string;
 }
 interface IState {
   textareaValue : string;
@@ -39,6 +45,15 @@ IState > {
     this.initCodemirror();
   }
 
+  public componentWillReceiveProps(nextProps:IProps) {
+    this.codemirror.setValue(nextProps.content)
+    this.setState({
+      textareaValue: nextProps.content,
+      markedHtml: this.marked(nextProps.content)
+    })
+  }
+
+  // 初始marked
   public initMarked = () => {
     this.marked = marked.setOptions({
       renderer: new marked.Renderer(),
@@ -94,10 +109,6 @@ IState > {
       .on('change', (cm : any) => {
         const content = cm.getValue();
         if (content !== this.state.textareaValue) {
-          this.setState({
-            textareaValue: content,
-            markedHtml: this.marked(content)
-          })
           this.props.onChangeMarkedContent(content)
         }
       });

@@ -8,7 +8,8 @@ export interface  IArticle{
   readonly tags: string[];
   readonly introduce: string;
   readonly content: string;
-  readonly mate: IMate
+  readonly mate: IMate;
+  readonly _id: number;
 }
 
 export interface  ITags{

@@ -19,6 +19,7 @@ interface IState {
   tags : ITags[];
   selected : number[];
   markedContent : string;
+  content : string;
   isEdit : boolean;
   articleId : number;
 }
@@ -31,7 +32,8 @@ IState > {
     this.state = {
       title: '',
       introduce: '',
-      markedContent: '',
+      markedContent: '', // 编辑状态初次渲染
+      content: '', // 文章编辑过程中存储
       tags: [],
       selected: [],
       isEdit: false,
@@ -40,10 +42,14 @@ IState > {
   }
 
   public async componentDidMount() {
-    const result = await getTagsAll();
-    this.setState({tags: result})
-
     const params = this.props.match.params;
+
+    const result = await getTagsAll();
+    this.setState({
+      tags: result,
+      isEdit: !!params.id
+    })
+
     if (!!params.id) {
       const articleResult = await getArticleDetail(params.id);
       this.initHandleEditeArticle(articleResult, params.id)
@@ -67,10 +73,10 @@ IState > {
     this.setState({
       title,
       introduce,
+      content,
       markedContent: content,
       selected,
-      articleId: id,
-      isEdit: true
+      articleId: id
     })
   }
 
@@ -90,7 +96,7 @@ IState > {
   }
   // 处理marked 内容
   public onChangeMarkedContent = (content : string) => {
-    this.setState({markedContent: content})
+    this.setState({content})
   }
 
   // 处理内容内容
@@ -99,18 +105,20 @@ IState > {
     const {
       title,
       introduce,
-      markedContent,
+      content,
       tags,
       selected,
       isEdit,
       articleId
     } = this.state
+
     const resultTags = selected.map((item : number) => tags[item].msg)
+
     const submitData = {
       title,
       tags: resultTags,
       introduce,
-      content: markedContent,
+      content,
       isEdit: true
     }
 
@@ -143,8 +151,8 @@ IState > {
       <div>
 
         <ContentHeaderComponent title={isEdit
-      ? '编辑文章'
-      : '新建文章'}>
+          ? '编辑文章'
+          : '新建文章'}>
           <button onClick={this.onSaveSubmit}>
             保存
           </button>
@@ -184,7 +192,7 @@ IState > {
                 <span>文章内容</span>
                 <div className={style.itemContainer}>
                   <MarkDownComponent
-                    content={markedContent}
+                    markedContent={markedContent}
                     onChangeMarkedContent={this.onChangeMarkedContent}/>
                 </div>
               </div>

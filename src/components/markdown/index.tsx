@@ -16,7 +16,7 @@ import 'highlightjs/styles/ocean.css';
 
 interface IProps {
   onChangeMarkedContent: (content: string) => void;
-  content: string;
+  markedContent: string;
 }
 interface IState {
   textareaValue : string;
@@ -46,11 +46,9 @@ IState > {
   }
 
   public componentWillReceiveProps(nextProps:IProps) {
-    this.codemirror.setValue(nextProps.content)
-    this.setState({
-      textareaValue: nextProps.content,
-      markedHtml: this.marked(nextProps.content)
-    })
+    if (this.props.markedContent !== nextProps.markedContent) {
+      this.codemirror.setValue(nextProps.markedContent)
+    }
   }
 
   // 初始marked
@@ -109,6 +107,10 @@ IState > {
       .on('change', (cm : any) => {
         const content = cm.getValue();
         if (content !== this.state.textareaValue) {
+          this.setState({
+            textareaValue: content,
+            markedHtml: this.marked(content)
+          })
           this.props.onChangeMarkedContent(content)
         }
       });

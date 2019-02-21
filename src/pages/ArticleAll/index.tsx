@@ -14,7 +14,7 @@ any > {
     return (
       <div>
 
-        <ContentHeaderComponent title="所有文章">
+        <ContentHeaderComponent hideGoBack={true} title="所有文章">
           <button>
             <Link to="/article-create">新建文章</Link>
           </button>

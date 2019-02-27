@@ -6,32 +6,24 @@
 
 import * as React from 'react';
 import {IArticle} from 'src/interfaces/interface';
-import {getArticleAll} from 'src/action/httpaction';
 import {Link} from "react-router-dom";
 import * as style from './style/style.scss'
 
-
-interface IState {
+interface IProps {
   article : IArticle[]
 }
-export default class ArticleContainer extends React.Component < any,
-IState > {
+
+
+export default class ArticleContainer extends React.Component < IProps,
+any > {
 
   constructor(props : any) {
     super(props)
-    this.state = {
-      article: []
-    }
-  }
-
-  public async componentDidMount() {
-    const result = await getArticleAll()
-    this.setState({article: result})
   }
 
 
   public render() {
-    const {article} = this.state
+    const {article} = this.props
     return (
       <div className={style.articleContainer}>
         {article.map((item : IArticle, key : number) => {

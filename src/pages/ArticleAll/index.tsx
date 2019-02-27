@@ -6,11 +6,29 @@ import * as React from 'react';
 import ContentHeaderComponent from 'src/components/contentHeader/index';
 import CardContainerComponent from 'src/components/cardContainer/index';
 import ArticleContainer from 'src/components/articles';
+import {getArticleAll} from 'src/action/httpaction';
 import {Link} from "react-router-dom";
+import {IArticle} from 'src/interfaces/interface';
 
+interface IState {
+  article : IArticle[]
+}
 export default class ArticleAllPages extends React.Component < any,
-any > {
+IState > {
+  constructor(props:any) {
+    super(props);
+    this.state = {
+      article: []
+    }
+  }
+
+  public async componentDidMount() {
+    const result = await getArticleAll()
+    this.setState({article: result})
+  }
+
   public render() {
+    const {article} = this.state
     return (
       <div>
 
@@ -22,7 +40,7 @@ any > {
 
         <div>
           <CardContainerComponent>
-            <ArticleContainer/>
+            <ArticleContainer article={article}/>
           </CardContainerComponent>
         </div>
 

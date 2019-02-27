@@ -6,9 +6,10 @@ import * as React from 'react';
 import ContentHeaderComponent from 'src/components/contentHeader';
 import CardContainerComponent from 'src/components/cardContainer';
 import MarkDownComponent from 'src/components/markdown';
-import TagsComponent from 'src/components/tags'
-import {getTagsAll, putEditArticle, postCreateArticle, getArticleDetail} from 'src/action/httpaction';
+import TagsComponent from 'src/components/tags';
+import {putEditArticle, postCreateArticle, getArticleDetail} from 'src/action/httpaction';
 
+import {observer, inject} from 'mobx-react';
 import {ITags, IArticle} from 'src/interfaces/interface';
 import * as style from './style/style.scss';
 import {withRouter} from 'react-router-dom';
@@ -24,6 +25,8 @@ interface IState {
   articleId : number;
 }
 
+@inject('store')
+@observer
 class ArticleCreateOrDetailPage extends React.Component < any,
 IState > {
 
@@ -43,13 +46,6 @@ IState > {
 
   public async componentDidMount() {
     const params = this.props.match.params;
-
-    const result = await getTagsAll();
-    this.setState({
-      tags: result,
-      isEdit: !!params.id
-    })
-
     if (!!params.id) {
       const articleResult = await getArticleDetail(params.id);
       this.initHandleEditeArticle(articleResult, params.id)
@@ -76,7 +72,8 @@ IState > {
       content,
       markedContent: content,
       selected,
-      articleId: id
+      articleId: id,
+      isEdit: true
     })
   }
 
@@ -106,11 +103,12 @@ IState > {
       title,
       introduce,
       content,
-      tags,
       selected,
       isEdit,
       articleId
-    } = this.state
+    } = this.state;
+    
+    const {tags} = this.props.store;
 
     const resultTags = selected.map((item : number) => tags[item].msg)
 
@@ -139,14 +137,9 @@ IState > {
   }
 
   public render() {
-    const {
-      title,
-      introduce,
-      tags,
-      selected,
-      markedContent,
-      isEdit
-    } = this.state;
+    const {title, introduce, selected, markedContent, isEdit} = this.state;
+
+    const {tags} = this.props.store
     return (
       <div>
 

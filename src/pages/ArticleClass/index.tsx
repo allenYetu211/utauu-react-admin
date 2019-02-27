@@ -6,47 +6,68 @@ import * as React from 'react';
 import ContentHeaderComponent from 'src/components/contentHeader/index';
 import CardContainerComponent from 'src/components/cardContainer/index';
 import ArticleContainer from 'src/components/articles';
-import {ITags, IArticle} from 'src/interfaces/interface';
-import {getTagsAll, getTagClassArticle } from 'src/action/httpaction';
+import TagsComponent from 'src/components/tags';
+import {IArticle} from 'src/interfaces/interface';
+import {getTagClassArticle} from 'src/action/httpaction';
+import {observer, inject} from 'mobx-react';
 
 interface IState {
-  tags : ITags[];
   article : IArticle[];
+  selected : number[];
 }
-export default class ArticleClassPages extends React.Component<any, IState> {
+@inject('store')
+@observer
+export default class ArticleClassPages extends React.Component < any,
+IState > {
 
   constructor(props : any) {
     super(props)
     this.state = {
-      tags: [],
-      article: []
+      article: [],
+      selected: [0]
     }
   }
   public async componentDidMount() {
-    const tagResult = await getTagsAll();
-    const articleResult = await getTagClassArticle(tagResult[0].msg);
-    this.getTagClassArticleInfo(tagResult[0].msg)
-    this.setState({
-      article: articleResult
-    })
+    const {tags} = this.props.store
+    this.getTagClassArticleInfo(tags[0].msg)
   }
 
-  public  getTagClassArticleInfo = async(tagClass: string) => {
+  public getTagClassArticleInfo = async(tagClass : string) => {
     const articleResult = await getTagClassArticle(tagClass);
-    this.setState({
-      article: articleResult
-    })
+    this.setState({article: articleResult})
   }
 
-  public render () {
-    const {article} = this.state
+  // 处理tags
+  public onChangeSelected = (selecteds : number[]) => {
+    console.log('selecteds', selecteds)
+    if (selecteds[0] === this.state.selected[0]) {
+      return
+    }
+    const {tags} = this.props.store
+    this.getTagClassArticleInfo(tags[selecteds[0]].msg)
+    this.setState({selected: selecteds})
+  }
+
+  public render() {
+    const {article, selected} = this.state;
+    const {tags} = this.props.store;
     return (
       <div>
-          <ContentHeaderComponent hideGoBack={true} title="已发布文章"/>
+        <ContentHeaderComponent hideGoBack={true} title="已发布文章"/>
 
         <div>
           <CardContainerComponent>
-            <ArticleContainer article={article}/>
+            <div>
+              <TagsComponent
+                onChangeSelected={this.onChangeSelected}
+                selected={selected}
+                tags={tags}
+                isHighlight={true}/>
+            </div>
+
+            <div>
+              <ArticleContainer article={article}/>
+            </div>
           </CardContainerComponent>
         </div>
       </div>

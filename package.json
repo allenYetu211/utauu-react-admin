@@ -27,6 +27,8 @@
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
     "marked": "^0.6.0",
+    "mobx": "^5.9.0",
+    "mobx-react": "^5.4.3",
     "node-sass": "^4.11.0",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",

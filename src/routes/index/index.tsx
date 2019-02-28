@@ -5,18 +5,18 @@
 import * as React from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 
-import * as style from 'src/routes/style/stlye.scss'
-import IndexPage from 'src/pages/index'
-import ColumnChildsComponent from 'src/routes/columnChilds/index'
-import ColumnItemComponent from 'src/routes/cloumnItem/index'
-import {IParentContainer} from 'src/interfaces/routes.interface'
-import ArticleAll from 'src/pages/ArticleAll'
-import ArticleClass from 'src/pages/ArticleClass'
-import ArticleTag from 'src/pages/ArticleTag'
-import Articlepublish from 'src/pages/Articlepublish'
-import ArticleCreateOrDetail from 'src/pages/ArticleCreateOrDetail'
+import * as style from 'src/routes/style/stlye.scss';
+import IndexPage from 'src/pages/index';
+import ColumnChildsComponent from 'src/routes/columnChilds/index';
+import ColumnItemComponent from 'src/routes/cloumnItem/index';
+import {IParentContainer} from 'src/interfaces/routes.interface';
+import ArticleAll from 'src/pages/ArticleAll';
+import ArticleClass from 'src/pages/ArticleClass';
+import ArticleTag from 'src/pages/ArticleTag';
+import Articlepublish from 'src/pages/Articlepublish';
+import ArticleCreateOrDetail from 'src/pages/ArticleCreateOrDetail';
 // import ArticleDetail from 'src/pages/ArticleDetail'
-
+import {getTagsAll} from 'src/action/httpaction';
 
 interface IState {
   targetCount : number;
@@ -58,6 +58,11 @@ IState > {
       ]
     }
   }
+
+  public async componentDidMount() {
+    await getTagsAll()
+  }
+ 
 
   public onTargetLiClount = (index : number) => {
     this.setState({targetCount: index})

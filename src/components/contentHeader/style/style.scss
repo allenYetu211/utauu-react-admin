@@ -12,6 +12,13 @@
   }
 }
 
+.header-title-container {
+  @extend %flex-start;
+}
+.history-go-back {
+  cursor: pointer;
+  padding: 0 20px;
+}
 .cardContainer {
   
 }

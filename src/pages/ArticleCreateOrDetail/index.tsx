@@ -107,7 +107,7 @@ IState > {
       isEdit,
       articleId
     } = this.state;
-    
+
     const {tags} = this.props.store;
 
     const resultTags = selected.map((item : number) => tags[item].msg)
@@ -150,48 +150,60 @@ IState > {
             保存
           </button>
 
+
         </ContentHeaderComponent>
+        <div className={style.articleContainer}>
+          <div className={style.editContainer}>
+            <CardContainerComponent fullHv={true} cardTitlt="基本信息">
+              <div className={style.basicsInfoContainer}>
+                <div>
+                  <div className={style.labelItem}>
+                    <span>文章标题</span>
+                    <input
+                      className="default__style"
+                      value={title}
+                      onChange={this.onTitle}
+                      type="text"/>
+                  </div>
 
-        <CardContainerComponent fullHv={true} cardTitlt="基本信息">
-          <div className={style.basicsInfoContainer}>
-            <div>
-              <div className={style.labelItem}>
-                <span>文章标题</span>
-                <input
-                  className="default__style"
-                  value={title}
-                  onChange={this.onTitle}
-                  type="text"/>
-              </div>
+                  <div className={style.labelItemStart}>
+                    <span>文章简介</span>
+                    <textarea
+                      className="default__style textarea__style"
+                      value={introduce}
+                      onChange={this.onBriefintroduce}/>
+                  </div>
 
-              <div className={style.labelItemStart}>
-                <span>文章简介</span>
-                <textarea
-                  className="default__style textarea__style"
-                  value={introduce}
-                  onChange={this.onBriefintroduce}/>
-              </div>
-
-              <div className={style.labelItem}>
-                <span>文章标签</span>
-                <TagsComponent
-                  onChangeSelected={this.onChangeSelected}
-                  selected={selected}
-                  tags={tags}/>
-              </div>
-            </div>
-            <div>
-              <div className={style.labelItemStart}>
-                <span>文章内容</span>
-                <div className={style.itemContainer}>
-                  <MarkDownComponent
-                    markedContent={markedContent}
-                    onChangeMarkedContent={this.onChangeMarkedContent}/>
+                  <div className={style.labelItem}>
+                    <span>文章标签</span>
+                    <TagsComponent
+                      onChangeSelected={this.onChangeSelected}
+                      selected={selected}
+                      tags={tags}/>
+                  </div>
+                </div>
+                <div>
+                  <div className={style.labelItemStart}>
+                    <span>文章内容</span>
+                    <div className={style.itemContainer}>
+                      <MarkDownComponent
+                        markedContent={markedContent}
+                        onChangeMarkedContent={this.onChangeMarkedContent}/>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </CardContainerComponent>
           </div>
-        </CardContainerComponent>
+
+
+          <div className={style.stateContainer}>
+            <CardContainerComponent cardTitlt="发布状态">
+              发布状态
+            </CardContainerComponent>
+          </div>
+
+        </div>
 
       </div>
     )

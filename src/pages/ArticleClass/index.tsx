@@ -28,13 +28,15 @@ IState > {
     }
   }
   public async componentDidMount() {
-    const {tags} = this.props.store
-    this.getTagClassArticleInfo(tags[0].msg)
+    const {tags} = this.props.store;
+    this.getTagClassArticleInfo(!!tags[0]
+      ? tags[0].msg
+      : "前端");
   }
 
   public getTagClassArticleInfo = async(tagClass : string) => {
     const articleResult = await getTagClassArticle(tagClass);
-    this.setState({article: articleResult})
+    this.setState({article: articleResult});
   }
 
   // 处理tags

@@ -21,10 +21,13 @@ any > {
 
     return (
       <div className={style.contentHeader}>
-        <div>
+        <div className={style.headerTitleContainer}>
           {!hideGoBack && (
-            <div onClick={this.onHistoryGoBack}>
-              返回上一页
+            <div  
+             onClick={this.onHistoryGoBack}
+             className={style.historyGoBack}
+             >
+              返回
             </div>
           )
 }

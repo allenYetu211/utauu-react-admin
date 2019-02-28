@@ -1,5 +1,18 @@
 @import 'src/asset/style/extendsFlex.scss';
 @import 'src/asset/style/variable.scss';
+
+.article-container {
+  @extend %flex-center;
+  align-items: flex-start;
+  .edit-container {
+    flex: 1;
+  }
+  .state-container {
+    width: 300px;
+    margin-left: 15px;
+  }
+}
+
 .labelItem {
   @extend %flex-center;
   margin-bottom: 20px;

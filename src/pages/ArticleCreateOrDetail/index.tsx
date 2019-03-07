@@ -23,6 +23,7 @@ interface IState {
   content : string;
   isEdit : boolean;
   articleId : number;
+  checked: boolean;
 }
 
 @inject('store')
@@ -40,7 +41,8 @@ IState > {
       tags: [],
       selected: [],
       isEdit: false,
-      articleId: 0
+      articleId: 0,
+      checked: false
     }
   }
 
@@ -55,7 +57,7 @@ IState > {
 
   // 处理编辑文章初始信息
   public initHandleEditeArticle = (data : IArticle, id : number) => {
-    const {title, content, introduce, tags} = data;
+    const {title, content, introduce, tags, publishState} = data;
     const selected : number[] = []
     this
       .state
@@ -73,6 +75,7 @@ IState > {
       markedContent: content,
       selected,
       articleId: id,
+      checked: publishState,
       isEdit: true
     })
   }
@@ -96,6 +99,11 @@ IState > {
     this.setState({content})
   }
 
+  // 处理文章公布状态公用数据
+  public onPublishState = (e: any) => {
+    this.setState({checked: e.target.checked})
+  }
+
   // 处理内容内容
   public onSaveSubmit = async() => {
 
@@ -105,7 +113,8 @@ IState > {
       content,
       selected,
       isEdit,
-      articleId
+      articleId,
+      checked
     } = this.state;
 
     const {tags} = this.props.store;
@@ -117,6 +126,7 @@ IState > {
       tags: resultTags,
       introduce,
       content,
+      publishState: checked,
       isEdit: true
     }
 
@@ -137,7 +147,7 @@ IState > {
   }
 
   public render() {
-    const {title, introduce, selected, markedContent, isEdit} = this.state;
+    const {title, introduce, selected, markedContent, isEdit, checked} = this.state;
 
     const {tags} = this.props.store
     return (
@@ -149,7 +159,6 @@ IState > {
           <button onClick={this.onSaveSubmit}>
             保存
           </button>
-
 
         </ContentHeaderComponent>
         <div className={style.articleContainer}>
@@ -196,10 +205,13 @@ IState > {
             </CardContainerComponent>
           </div>
 
-
           <div className={style.stateContainer}>
             <CardContainerComponent cardTitlt="发布状态">
-              发布状态
+              <label>
+                <span>公布</span>
+                <input checked={checked} onChange={this.onPublishState} type="checkbox"/>
+              </label>
+
             </CardContainerComponent>
           </div>
 

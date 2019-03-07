@@ -16,6 +16,16 @@ export const getTagClassArticle = async(tag : string) => {
   })
 }
 
+// 获取发布文章
+export const getPublishClassArticle = async(publishState: boolean) => {
+  return await HTTP_CLIENT.get({
+    url: 'article',
+    param: {
+      publishState
+    }
+  })
+}
+
 // 获取文章详情
 export const getArticleDetail = async(id : number) => {
   return await HTTP_CLIENT.get({url: `article/${id}`})

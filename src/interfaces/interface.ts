@@ -10,6 +10,7 @@ export interface  IArticle{
   readonly content: string;
   readonly mate: IMate;
   readonly _id: number;
+  readonly publishState: boolean;
 }
 
 export interface  ITags{

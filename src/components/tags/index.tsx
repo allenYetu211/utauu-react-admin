@@ -18,8 +18,8 @@ export default class TagsComponents extends React.Component < IProps,
 any > {
   // 检测是否存在 event:React.MouseEvent<HTMLElement>
   public onChangeSelected = (index : number) => {
-    const {selected, onChangeSelected} = this.props;
-    if (this.props.isHighlight) {
+    const {selected, onChangeSelected, isHighlight} = this.props;
+    if (isHighlight) {
       onChangeSelected([index])
     } else {
       const copySelected = selected.slice()

@@ -3,12 +3,112 @@
  * @author:  Allen OYang https://github.com/allenYetu211
  */
 import * as React from 'react';
+import ContentHeaderComponent from 'src/components/contentHeader/index';
+import CardContainerComponent from 'src/components/cardContainer/index';
+import FooterButttonComponent from 'src/components/footerButton';
+import TagsComponent from 'src/components/tags';
+import {observer, inject} from 'mobx-react';
 
-export default class ArticleTagPages extends React.Component<any, any> {
-  public render () {
+import * as style from './style/style.scss'
+
+interface IState {
+  selected : number[];
+  tagType : string;
+  tagMsg : string;
+}
+@inject('store')
+@observer
+export default class ArticleTagPages extends React.Component < any,
+IState > {
+
+  constructor(props : any) {
+    super(props)
+    this.state = {
+      selected: [],
+      tagType: '',
+      tagMsg: ''
+
+    }
+  }
+
+  // 处理tags
+  public onChangeSelected = (selecteds : number[]) => {
+    this.setState({selected: selecteds})
+  }
+
+  // 删除标签确认事件
+  public onDeleteOkTag = () => {
+    console.log('onDeleteTag')
+  }
+
+  // 删除标签取消事件
+  public onDeleteCencelTag = () => {
+    console.log('onDeleteCencelTag')
+  }
+
+  public onCreateTagOk = () => {
+    console.log('onCreateTagOk')
+  }
+
+  // 新建标签类型
+  public onChangeTagType = (e : any) => {
+    this.setState({tagType: e.target.value})
+  }
+
+  // 新建标签描述
+  public onChangeTagMsg = (e : any) => {
+    this.setState({tagMsg: e.target.value})
+  }
+
+  public render() {
+    const {selected, tagType, tagMsg} = this.state;
+    const {tags} = this.props.store;
     return (
       <div>
-         Article tag pages
+        <ContentHeaderComponent hideGoBack={true} title="标签管理"/>
+
+        <div className={style.contentBottomMargin}>
+          <CardContainerComponent cardTitlt="当前标签">
+            <div className={style.contentBottomMargin}>
+              <TagsComponent
+                onChangeSelected={this.onChangeSelected}
+                selected={selected}
+                tags={tags}/>
+            </div>
+            <FooterButttonComponent
+              ok={this.onDeleteOkTag}
+              cancel={this.onDeleteCencelTag}/>
+
+          </CardContainerComponent>
+        </div>
+
+        <div>
+          <CardContainerComponent cardTitlt="新建标签">
+            <div  className={style.contentBottomMargin}>
+              <div className={style.labelItem}>
+                <span>类型</span>
+                <input
+                  className="default__style"
+                  value={tagType}
+                  onChange={this.onChangeTagType}
+                  type="text"/>
+              </div>
+
+              <div className={style.labelItem}>
+                <span>描述</span>
+                <input
+                  className="default__style"
+                  value={tagMsg}
+                  onChange={this.onChangeTagMsg}
+                  type="text"/>
+              </div>
+            </div>
+
+            <FooterButttonComponent
+              ok={this.onCreateTagOk}/>
+
+          </CardContainerComponent>
+        </div>
       </div>
     )
   }

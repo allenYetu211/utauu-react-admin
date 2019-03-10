@@ -11,12 +11,13 @@ import {observer, inject} from 'mobx-react';
 
 @inject('store')
 @observer
-export default class ArticlePublishPages extends React.Component<any, any> {
+export default class ArticlePublishPages extends React.Component < any,
+any > {
 
   constructor(props : any) {
     super(props)
     this.state = {
-      article: [],
+      article: []
     }
   }
 
@@ -24,7 +25,6 @@ export default class ArticlePublishPages extends React.Component<any, any> {
     const article = await getPublishClassArticle(true);
     this.setState({article});
   }
-
 
   public render() {
     const {article} = this.state;
@@ -43,4 +43,3 @@ export default class ArticlePublishPages extends React.Component<any, any> {
     )
   }
 }
-

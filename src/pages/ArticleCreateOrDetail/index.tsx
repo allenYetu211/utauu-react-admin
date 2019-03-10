@@ -3,6 +3,8 @@
  * @author:  Allen OYang https://github.com/allenYetu211
  */
 import * as React from 'react';
+import {withRouter} from 'react-router-dom';
+
 import ContentHeaderComponent from 'src/components/contentHeader';
 import CardContainerComponent from 'src/components/cardContainer';
 import MarkDownComponent from 'src/components/markdown';
@@ -12,7 +14,6 @@ import {putEditArticle, postCreateArticle, getArticleDetail} from 'src/action/ht
 import {observer, inject} from 'mobx-react';
 import {ITags, IArticle} from 'src/interfaces/interface';
 import * as style from './style/style.scss';
-import {withRouter} from 'react-router-dom';
 
 interface IState {
   title : string;

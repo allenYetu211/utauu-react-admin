@@ -41,7 +41,6 @@ IState > {
 
   // 处理tags
   public onChangeSelected = (selecteds : number[]) => {
-    console.log('selecteds', selecteds)
     if (selecteds[0] === this.state.selected[0]) {
       return
     }

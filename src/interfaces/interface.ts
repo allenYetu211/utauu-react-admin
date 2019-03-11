@@ -1,7 +1,7 @@
 interface IMate {
-  view: number,
-  links: number,
-  comment: number
+  readonly view: number,
+  readonly links: number,
+  readonly comment: number
 }
 export interface  IArticle{
   readonly title: string;
@@ -16,4 +16,5 @@ export interface  IArticle{
 export interface  ITags{
   readonly msg: string;
   readonly type: string[];
+  readonly _id: number;
 }

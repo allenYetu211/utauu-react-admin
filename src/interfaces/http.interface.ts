@@ -16,3 +16,7 @@ export interface ICreateArticle {
 	content: string;
 }
 
+export interface ICreateTag {
+	  msg: string;
+    type: string;
+}

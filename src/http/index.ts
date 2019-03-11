@@ -41,6 +41,10 @@ class HttpClient {
     public async put (param:IGetParams): Promise<any>{
       return this.AXIOS_REQUEST('PUT', param)
     }  
+
+    public async delete(param:IGetParams): Promise<any> {
+      return this.AXIOS_REQUEST('DELETE', param)
+    }
     
     public async AXIOS_REQUEST(method: string, param:IGetParams): Promise<any> {
       return await this.axios({

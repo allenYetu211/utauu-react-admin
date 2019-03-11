@@ -7,6 +7,7 @@ import ContentHeaderComponent from 'src/components/contentHeader/index';
 import CardContainerComponent from 'src/components/cardContainer/index';
 import FooterButttonComponent from 'src/components/footerButton';
 import TagsComponent from 'src/components/tags';
+import {postCreateTag, deleteTag} from 'src/action/httpaction';
 import {observer, inject} from 'mobx-react';
 
 import * as style from './style/style.scss'
@@ -37,8 +38,14 @@ IState > {
   }
 
   // 删除标签确认事件
-  public onDeleteOkTag = () => {
-    console.log('onDeleteTag')
+  public onDeleteOkTag = async() => {
+    const {selected} = this.state;
+    const {tags} = this.props.store;
+    if (selected.length < 0) {
+      return
+    }
+    await deleteTag(tags[selected[0]]._id);
+    this.setState({selected: []});
   }
 
   // 删除标签取消事件
@@ -46,8 +53,18 @@ IState > {
     console.log('onDeleteCencelTag')
   }
 
-  public onCreateTagOk = () => {
-    console.log('onCreateTagOk')
+  // 创建标签
+  public onCreateTagOk = async() => {
+    const {tagType, tagMsg} = this.state;
+    if (!tagType || !tagMsg) {
+      return
+    }
+    const result = await postCreateTag({msg: tagMsg, type: tagType});
+    if (result) {
+      this.setState({tagType: '', tagMsg: ''})
+    } else {
+      console.log('Create Tags Error');
+    }
   }
 
   // 新建标签类型
@@ -68,23 +85,22 @@ IState > {
         <ContentHeaderComponent hideGoBack={true} title="标签管理"/>
 
         <div className={style.contentBottomMargin}>
-          <CardContainerComponent cardTitlt="当前标签">
+          <CardContainerComponent cardTitlt="全部">
             <div className={style.contentBottomMargin}>
               <TagsComponent
                 onChangeSelected={this.onChangeSelected}
                 selected={selected}
-                tags={tags}/>
+                tags={tags}
+                isHighlight={true}/>
             </div>
-            <FooterButttonComponent
-              ok={this.onDeleteOkTag}
-              cancel={this.onDeleteCencelTag}/>
+            <FooterButttonComponent ok={this.onDeleteOkTag}/> {/* cancel={this.onDeleteCencelTag} */}
 
           </CardContainerComponent>
         </div>
 
         <div>
           <CardContainerComponent cardTitlt="新建标签">
-            <div  className={style.contentBottomMargin}>
+            <div className={style.contentBottomMargin}>
               <div className={style.labelItem}>
                 <span>类型</span>
                 <input
@@ -104,8 +120,7 @@ IState > {
               </div>
             </div>
 
-            <FooterButttonComponent
-              ok={this.onCreateTagOk}/>
+            <FooterButttonComponent ok={this.onCreateTagOk}/>
 
           </CardContainerComponent>
         </div>

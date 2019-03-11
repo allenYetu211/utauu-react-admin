@@ -24,7 +24,7 @@ interface IState {
   content : string;
   isEdit : boolean;
   articleId : number;
-  checked: boolean;
+  checked : boolean;
 }
 
 @inject('store')
@@ -61,7 +61,8 @@ IState > {
     const {title, content, introduce, tags, publishState} = data;
     const selected : number[] = []
     this
-      .state
+      .props
+      .store
       .tags
       .forEach((item : ITags, index : number) => {
         if (tags.includes(item.msg)) {
@@ -101,7 +102,7 @@ IState > {
   }
 
   // 处理文章公布状态公用数据
-  public onPublishState = (e: any) => {
+  public onPublishState = (e : any) => {
     this.setState({checked: e.target.checked})
   }
 
@@ -148,7 +149,14 @@ IState > {
   }
 
   public render() {
-    const {title, introduce, selected, markedContent, isEdit, checked} = this.state;
+    const {
+      title,
+      introduce,
+      selected,
+      markedContent,
+      isEdit,
+      checked
+    } = this.state;
 
     const {tags} = this.props.store
     return (

@@ -4,9 +4,10 @@
  */
 import * as React from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
-
 import * as style from 'src/routes/style/stlye.scss';
 import IndexPage from 'src/pages/index';
+import LoginPage from 'src/pages/Login';
+
 import ColumnChildsComponent from 'src/routes/columnChilds/index';
 import ColumnItemComponent from 'src/routes/cloumnItem/index';
 import {IParentContainer} from 'src/interfaces/routes.interface';
@@ -62,17 +63,17 @@ IState > {
   public async componentDidMount() {
     await getTagsAll()
   }
- 
 
   public onTargetLiClount = (index : number) => {
     this.setState({targetCount: index})
   }
 
   public render() {
-    const {parentContainer, targetCount} = this.state
+    const {parentContainer, targetCount} = this.state;
+    console.log('props::', this.props);
     return (
       <Router>
-    
+
         <div className={style.routeContent}>
           <div className={style.routeSide}>
             <ul className={style.sideParentContainer}>
@@ -107,10 +108,10 @@ IState > {
             <Route path="/article-publish" component={Articlepublish}/>
             <Route path="/article-create" component={ArticleCreateOrDetail}/>
             <Route path="/article-detail/:id" component={ArticleCreateOrDetail}/>
+            <Route path="/login" component={LoginPage}/>
           </div>
-
         </div>
-       
+
       </Router>
     )
   }
